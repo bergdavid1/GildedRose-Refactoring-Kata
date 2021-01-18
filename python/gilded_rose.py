@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-def is_expired_item(item):
-    return
-
-
 class GildedRose(object):
 
     def __init__(self, items):
@@ -21,9 +17,10 @@ class GildedRose(object):
                     item.quality = min(item.quality + 1, 50)
                 if item.sell_in < 6:
                     item.quality = min(item.quality + 1, 50)
+            elif "conjured" in item.name.lower():
+                item.quality = max(0, item.quality-2)
             else:
-                if item.quality > 0:
-                    item.quality = item.quality - 1
+                item.quality = max(0, item.quality-1)
 
             if item.name != "Sulfuras, Hand of Ragnaros":
                 item.sell_in = item.sell_in - 1
@@ -31,6 +28,8 @@ class GildedRose(object):
             if item.sell_in < 0:
                 if item.name in {"Sulfuras, Hand of Ragnaros", "Aged Brie"}:
                     pass
+                elif "conjured" in item.name.lower():
+                    item.quality = max(0, item.quality-2)
                 elif item.name == "Backstage passes to a TAFKAL80ETC concert":
                     item.quality = item.quality - item.quality
                 else:

@@ -107,7 +107,6 @@ class GildedRoseTest(unittest.TestCase):
         quality = 25
         self.assert_update_item(item_name, sell_in, quality, sell_in-1, 0)
 
-    @unittest.skip('Up next. Refactor first.')
     def test_conjured_item1_normal(self):
         # "Conjured" items degrade in Quality twice as fast as normal items
         item_name = "Conjured Item1"
@@ -115,7 +114,6 @@ class GildedRoseTest(unittest.TestCase):
         quality = 25
         self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality-2)
 
-    @unittest.skip('Only one failing test at a time')
     def test_conjured_item2_expired(self):
         # "Conjured" items degrade in Quality twice as fast as normal items
         item_name = "Conjured Item2"
@@ -123,7 +121,6 @@ class GildedRoseTest(unittest.TestCase):
         quality = 39
         self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality-4)
 
-    @unittest.skip('Only one failing test at a time')
     def test_conjured_item3_min_quality(self):
         # "Conjured" items degrade in Quality twice as fast as normal items
         item_name = "Conjured Item3"
