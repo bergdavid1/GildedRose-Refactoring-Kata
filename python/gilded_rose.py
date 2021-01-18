@@ -13,17 +13,14 @@ class GildedRose(object):
         for item in self.items:
             if item.name == "Sulfuras, Hand of Ragnaros":
                 pass
-            elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-                if item.quality < 50:
-                    item.quality = item.quality + 1
-                if item.sell_in < 11:
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
-                if item.sell_in < 6:
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
             elif item.name == "Aged Brie":
                 item.quality = min(item.quality + 2, 50)
+            elif item.name == "Backstage passes to a TAFKAL80ETC concert":
+                item.quality = min(item.quality + 1, 50)
+                if item.sell_in < 11:
+                    item.quality = min(item.quality + 1, 50)
+                if item.sell_in < 6:
+                    item.quality = min(item.quality + 1, 50)
             else:
                 if item.quality > 0:
                     item.quality = item.quality - 1
