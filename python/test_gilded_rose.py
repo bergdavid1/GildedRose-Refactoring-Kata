@@ -29,35 +29,35 @@ class GildedRoseTest(unittest.TestCase):
         item_name = "foo"
         sell_in = 0
         quality = 1
-        self.assert_update_item(item_name, sell_in, quality, sell_in - 1, quality - 1)
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality-1)
 
     def test_foo_quality_expired(self):
         # Once the sell by date has passed, Quality degrades twice as fast
         item_name = "foo"
         sell_in = 0
         quality = 50
-        self.assert_update_item(item_name, sell_in, quality, sell_in - 1, quality - 2)
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality-2)
 
     def test_foo(self):
         # The Quality of an item is never negative
         item_name = "foo"
         sell_in = 0
         quality = 0
-        self.assert_update_item(item_name, sell_in, quality, sell_in - 1, quality)
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality)
 
     def test_brie(self):
         # "Aged Brie" actually increases in Quality the older it gets
         item_name = "Aged Brie"
         sell_in = 0
         quality = 0
-        self.assert_update_item(item_name, sell_in, quality, sell_in - 1, quality + 2)
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality+2)
 
     def test_brie_negative_sell_in(self):
         # The Quality of an item is never more than 50
         item_name = "Aged Brie"
         sell_in = -1
         quality = 50
-        self.assert_update_item(item_name, sell_in, quality, sell_in - 1, quality)
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality)
 
     def test_ragnaros(self):
         # "Sulfuras", being a legendary item, never has to be sold or
@@ -84,28 +84,52 @@ class GildedRoseTest(unittest.TestCase):
         item_name = "Backstage passes to a TAFKAL80ETC concert"
         sell_in = 12
         quality = 25
-        self.assert_update_item(item_name, sell_in, quality, sell_in - 1, quality + 1)
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality + 1)
 
     def test_TAFKAL80ETC_sell_soon(self):
         # Quality increases by 2 when there are 10 days or less...
         item_name = "Backstage passes to a TAFKAL80ETC concert"
         sell_in = 9
         quality = 25
-        self.assert_update_item(item_name, sell_in, quality, sell_in - 1, quality + 2)
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality + 2)
 
     def test_TAFKAL80ETC_sell_now(self):
         # Quality increases ... by 3 when there are 5 days or less
         item_name = "Backstage passes to a TAFKAL80ETC concert"
         sell_in = 5
         quality = 25
-        self.assert_update_item(item_name, sell_in, quality, sell_in - 1, quality + 3)
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality + 3)
 
     def test_TAFKAL80ETC_expired(self):
         # Quality drops to 0 after the concert
         item_name = "Backstage passes to a TAFKAL80ETC concert"
         sell_in = 0
         quality = 25
-        self.assert_update_item(item_name, sell_in, quality, sell_in - 1, 0)
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, 0)
+
+    @unittest.skip('Up next. Refactor first.')
+    def test_conjured_item1_normal(self):
+        # "Conjured" items degrade in Quality twice as fast as normal items
+        item_name = "Conjured Item1"
+        sell_in = 10
+        quality = 25
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality-2)
+
+    @unittest.skip('Only one failing test at a time')
+    def test_conjured_item2_expired(self):
+        # "Conjured" items degrade in Quality twice as fast as normal items
+        item_name = "Conjured Item2"
+        sell_in = -2
+        quality = 39
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, quality-4)
+
+    @unittest.skip('Only one failing test at a time')
+    def test_conjured_item3_min_quality(self):
+        # "Conjured" items degrade in Quality twice as fast as normal items
+        item_name = "Conjured Item3"
+        sell_in = -1
+        quality = 3
+        self.assert_update_item(item_name, sell_in, quality, sell_in-1, 0)
 
 
 if __name__ == '__main__':
