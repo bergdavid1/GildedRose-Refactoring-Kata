@@ -7,34 +7,31 @@ class GildedRose(object):
 
     def update_quality(self):
         for item in self.items:
+
+            if item.name != "Sulfuras, Hand of Ragnaros":
+                item.sell_in = item.sell_in - 1
+
             if item.name == "Sulfuras, Hand of Ragnaros":
-                pass
+                continue
             elif item.name == "Aged Brie":
                 item.quality = min(item.quality + 2, 50)
+                continue
             elif item.name == "Backstage passes to a TAFKAL80ETC concert":
                 item.quality = min(item.quality + 1, 50)
                 if item.sell_in < 11:
                     item.quality = min(item.quality + 1, 50)
                 if item.sell_in < 6:
                     item.quality = min(item.quality + 1, 50)
+                if item.sell_in < 0:
+                    item.quality = item.quality - item.quality
             elif "conjured" in item.name.lower():
                 item.quality = max(0, item.quality-2)
+                if item.sell_in < 0:
+                    item.quality = max(0, item.quality-2)
             else:
                 item.quality = max(0, item.quality-1)
-
-            if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1
-
-            if item.sell_in < 0:
-                if item.name in {"Sulfuras, Hand of Ragnaros", "Aged Brie"}:
-                    pass
-                elif "conjured" in item.name.lower():
-                    item.quality = max(0, item.quality-2)
-                elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-                    item.quality = item.quality - item.quality
-                else:
-                    if item.quality > 0:
-                        item.quality = item.quality - 1
+                if item.quality > 0:
+                    item.quality = item.quality - 1
 
 
 class Item:
