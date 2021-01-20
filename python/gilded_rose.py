@@ -17,13 +17,15 @@ class GildedRose(object):
                 item.quality = min(item.quality + 2, 50)
                 continue
             elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-                item.quality = min(item.quality + 1, 50)
-                if item.sell_in < 11:
-                    item.quality = min(item.quality + 1, 50)
-                if item.sell_in < 6:
-                    item.quality = min(item.quality + 1, 50)
                 if item.sell_in < 0:
-                    item.quality = item.quality - item.quality
+                    item.quality = 0
+                elif item.sell_in < 6:
+                    item.quality = min(item.quality + 3, 50)
+                elif item.sell_in < 11:
+                    item.quality = min(item.quality + 2, 50)
+                else:
+                    item.quality = min(item.quality + 1, 50)
+
             elif "conjured" in item.name.lower():
                 item.quality = max(0, item.quality-2)
                 if item.sell_in < 0:
